@@ -20,7 +20,7 @@ export default function AppealEditor() {
     useEffect(() => {
         if (!token) return;
 
-        fetch(`http://localhost:5000/appeals/${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/appeals/${id}`, {
             headers: { 'x-auth-token': token }
         })
             .then(res => res.json())
@@ -46,7 +46,7 @@ export default function AppealEditor() {
     const handleSave = async () => {
         setSaving(true);
         try {
-            const res = await fetch(`http://localhost:5000/appeals/${id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/appeals/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export default function AppealEditor() {
         if (!recipientEmail || !emailSubject) return;
         setEmailing(true);
         try {
-            const res = await fetch('http://localhost:5000/email/send', {
+            const res = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/email/send', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -161,9 +161,9 @@ export default function AppealEditor() {
                                     value={status}
                                     onChange={(e) => setStatus(e.target.value)}
                                     className={`text-xs font-semibold px-2 py-0.5 rounded border outline-none cursor-pointer ${status === 'Successful' ? 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/40 dark:text-green-400 dark:border-green-900' :
-                                            status === 'Rejected' ? 'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/40 dark:text-red-400 dark:border-red-900' :
-                                                status === 'Sent' ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/40 dark:text-blue-400 dark:border-blue-900' :
-                                                    'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
+                                        status === 'Rejected' ? 'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/40 dark:text-red-400 dark:border-red-900' :
+                                            status === 'Sent' ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/40 dark:text-blue-400 dark:border-blue-900' :
+                                                'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
                                         }`}
                                 >
                                     <option value="Draft">Draft</option>

@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (token) {
             // Validate token and get user info
-            fetch('http://localhost:5000/auth/user', {
+            fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/auth/user', {
                 headers: { 'x-auth-token': token }
             })
                 .then(res => {
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     }, [token]);
 
     const login = async (email, password) => {
-        const res = await fetch('http://localhost:5000/auth/login', {
+        const res = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (name, email, password) => {
-        const res = await fetch('http://localhost:5000/auth/register', {
+        const res = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password })

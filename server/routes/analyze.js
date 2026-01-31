@@ -5,7 +5,10 @@ const fs = require('fs');
 const pdf = require('pdf-parse');
 
 // Configure Multer
-const upload = multer({ dest: 'uploads/' });
+const os = require('os');
+
+// Configure Multer to use system temp dir (compatible with Vercel/Serverless)
+const upload = multer({ dest: os.tmpdir() });
 
 router.post('/', upload.single('file'), async (req, res) => {
     try {

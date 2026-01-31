@@ -19,7 +19,7 @@ export default function ChatAssistant() {
 
     useEffect(() => {
         if (contextData?.appeal_id && token) {
-            fetch(`http://localhost:5000/chat/${contextData.appeal_id}`, {
+            fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/chat/${contextData.appeal_id}`, {
                 headers: { 'x-auth-token': token }
             })
                 .then(res => res.json())
@@ -46,7 +46,7 @@ export default function ChatAssistant() {
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/chat', {
+            const res = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ export default function History() {
     useEffect(() => {
         if (!token) return;
 
-        fetch('http://localhost:5000/appeals', {
+        fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/appeals', {
             headers: { 'x-auth-token': token }
         })
             .then(res => {

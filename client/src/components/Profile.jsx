@@ -34,7 +34,7 @@ export default function Profile() {
 
         setSaving(true);
         try {
-            const res = await fetch('http://localhost:5000/auth/user', {
+            const res = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/auth/user', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,8 +97,8 @@ export default function Profile() {
                         <button
                             onClick={() => setActiveTab('general')}
                             className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-200 flex items-center gap-3 group relative overflow-hidden ${activeTab === 'general'
-                                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                                 }`}
                         >
                             <svg className={`w-5 h-5 transition-colors ${activeTab === 'general' ? 'text-white' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
@@ -108,8 +108,8 @@ export default function Profile() {
                         <button
                             onClick={() => setActiveTab('security')}
                             className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-200 flex items-center gap-3 group relative overflow-hidden ${activeTab === 'security'
-                                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                                 }`}
                         >
                             <svg className={`w-5 h-5 transition-colors ${activeTab === 'security' ? 'text-white' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
@@ -140,8 +140,8 @@ export default function Profile() {
 
                             {message && (
                                 <div className={`mb-8 p-4 rounded-xl text-sm font-medium flex items-center gap-3 animate-in fade-in slide-in-from-top-2 shadow-sm ${message.type === 'error'
-                                        ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-800'
-                                        : 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 border border-green-100 dark:border-green-800'
+                                    ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-800'
+                                    : 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 border border-green-100 dark:border-green-800'
                                     }`}>
                                     <div className={`p-1.5 rounded-full ${message.type === 'error' ? 'bg-red-100 dark:bg-red-800/30' : 'bg-green-100 dark:bg-green-800/30'}`}>
                                         {message.type === 'error' ? (

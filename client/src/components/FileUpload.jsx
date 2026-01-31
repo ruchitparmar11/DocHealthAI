@@ -57,7 +57,7 @@ export default function FileUpload() {
         formData.append('file', file);
 
         try {
-            const response = await fetch('http://localhost:5000/analyze', {
+            const response = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/analyze', {
                 method: 'POST',
                 headers: {
                     'x-auth-token': token

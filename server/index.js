@@ -10,22 +10,32 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+const router = express.Router();
+
+router.get('/', (req, res) => {
     res.send('ClaimHero API is running');
 });
 
 const analyzeRoute = require('./routes/analyze');
-app.use('/analyze-claim', analyzeRoute);
+router.use('/analyze-claim', analyzeRoute);
 
 const appealsRoute = require('./routes/appeals');
-app.use('/appeals', appealsRoute);
+router.use('/appeals', appealsRoute);
 
-app.use('/analyze', require('./routes/analyze'));
-app.use('/auth', require('./routes/auth'));
-app.use('/email', require('./routes/email'));
-app.use('/chat', require('./routes/chat'));
+router.use('/analyze', require('./routes/analyze'));
+router.use('/auth', require('./routes/auth'));
+router.use('/email', require('./routes/email'));
+router.use('/chat', require('./routes/chat'));
+
+// Mount router for both local and Vercel paths
+app.use('/api', router);
+app.use('/', router);
 
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;

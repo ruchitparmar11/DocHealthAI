@@ -19,7 +19,7 @@ export default function DashboardHome({ children }) {
     useEffect(() => {
         if (!token) return;
 
-        fetch('http://localhost:5000/appeals/stats', {
+        fetch((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/appeals/stats', {
             headers: { 'x-auth-token': token }
         })
             .then(res => res.json())
