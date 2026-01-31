@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+// Environment variables are handled by the entry point or Vercel
+// require('dotenv').config();
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
