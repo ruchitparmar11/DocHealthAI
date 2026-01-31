@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,6 +16,17 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     res.send('ClaimHero API is running');
+});
+
+router.get('/health', async (req, res) => {
+    try {
+        const db = require('./db');
+        const result = await db.query('SELECT NOW()');
+        res.json({ status: 'ok', time: result.rows[0].now, env: process.env.NODE_ENV });
+    } catch (err) {
+        console.error('Database Check Failed:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
 });
 
 const analyzeRoute = require('./routes/analyze');
